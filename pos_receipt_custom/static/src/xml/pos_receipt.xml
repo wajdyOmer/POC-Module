@@ -22,4 +22,25 @@
         </xpath>
     </t>
 
+    <!-- Override the ReceiptHeader template to add customer phone number -->
+    <t t-name="point_of_sale.ReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension" owl="1">
+        
+        <!-- Add phone number next to customer name -->
+        <xpath expr="//div[@class='pos-receipt-customer mt-2']/div[1]" position="replace">
+            <div t-if="order.partner_id.name">
+                <t t-if="order.partner_id.parent_name">
+                    <span t-esc="order.partner_id.parent_name" />,
+                </t>
+                <span t-esc="order.partner_id.name" />
+                <t t-if="order.partner_id.phone">
+                    - <span t-esc="order.partner_id.phone" />
+                </t>
+                <t t-elif="order.partner_id.mobile">
+                    - <span t-esc="order.partner_id.mobile" />
+                </t>
+            </div>
+        </xpath>
+
+    </t>
+
 </templates>

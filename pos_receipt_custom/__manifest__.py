@@ -29,7 +29,6 @@
     'assets': {
         'point_of_sale._assets_pos': [
             'pos_receipt_custom/static/src/xml/pos_receipt.xml'
-            
         ]
     },
     'images': ['static/description/icon.png'],

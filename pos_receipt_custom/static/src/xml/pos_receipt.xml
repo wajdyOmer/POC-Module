@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Override the OrderReceipt template -->
+    <t t-name="point_of_sale.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <!-- Add separator line after order items and before taxes/totals -->
+        <xpath expr="//OrderDisplay" position="after">
+            <div class="separator-line" style="border-top: 2px solid #6e6e6eff; margin: 10px 0;"></div>
+        </xpath>
+
+        <!-- Add separator line before payment methods -->
+        <xpath expr="//div[@class='paymentlines text-start pt-1']" position="before">
+            <div class="separator-line" style="border-top: 2px solid #6e6e6eff; margin: 10px 0;"></div>
+        </xpath>
+
+        <!-- Remove "Powered by Odoo" text -->
+        <xpath expr="//div[@class='pos-receipt-order-data text-center pt-3']" position="replace">
+            <!-- Removed Powered by Odoo -->
+            <div class="pos-receipt-order-data text-center pt-3">
+                <p>Thank you for your business!</p>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -23,12 +23,29 @@
     'license': 'LGPL-3',
     'depends': [
         'point_of_sale',
+        'hr',
     ],
     'data': [
+            'security/ir.model.access.csv',
+            'views/hr_employee.xml'
     ],
     'assets': {
         'point_of_sale._assets_pos': [
-            'pos_receipt_custom/static/src/xml/pos_receipt.xml'
+            'pos_receipt_custom/static/src/xml/pos_receipt.xml',
+            'pos_receipt_custom/static/src/xml/pos_commission_customizations.xml',
+            'pos_receipt_custom/static/src/js/pos_commission_customizations.js',
+            'pos_receipt_custom/static/src/js/employee_line.js',
+            'pos_receipt_custom/static/src/js/employee_list.js',
+            'pos_receipt_custom/static/src/xml/employee_list.xml',
+            'pos_receipt_custom/static/src/xml/employee_line.xml',
+            'pos_receipt_custom/static/src/js/employee.js',
+            'pos_receipt_custom/static/src/xml/orderline_customization.xml',
+            'pos_receipt_custom/static/src/js/multi_selection.js',
+            'pos_receipt_custom/static/src/xml/multi_selection.xml',
+            'pos_receipt_custom/static/src/js/orderline_customization.js',
+            'pos_receipt_custom/static/src/style/multi_selection.css',
+            'pos_receipt_custom/static/src/js/customer_display_pos_adapter.js',
+            'pos_receipt_custom/static/src/js/pos_model.js'
         ]
     },
     'images': ['static/description/icon.png'],

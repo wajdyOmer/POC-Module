@@ -1,0 +1,35 @@
+<templates>
+    <t t-name="expression_multi_selection_field_template">
+        <div class='multi-select-tage-field' width="100%" >
+
+            <div class="tags-container-multi"  >
+
+                <t t-foreach='this.props.currentValue || []' t-as = 'tage' t-key = 'tage_index'>
+                    <div class = 'multi-select-tage' t-if = 'Object.keys(tage || {})' >
+                        <span>
+                            <t t-esc="tage.label || tage.name"/>
+                        </span>
+                        <button class="close-button" style = "color:white"
+                                t-on-click="(ev) => this.onSelectionValueChanges(ev,tage,'remove')">
+                            <i class="fa fa-close"></i>
+                        </button>
+                    </div>
+                </t>
+
+                <div style = "height: 100%;display:flex;flex-direction: column;flex:1;box-sizing: border-box;">
+                    <input type='text' class="multi-select-search-input" t-on-click="this.onElementFocus" t-on-keyup = 'this.onKeyWordChanged'  t-on-keydown = 'this.onKeyDown' />
+                    <t t-if = 'this.showDropDown.value'>
+                        <div class="formula-dropdown-list" id="dropdownList" t-ref = "dropDownList" >
+                            <t t-foreach="this.filterBySearchKey(this.props.availableTables?.value || [])" t-as="option" t-key="option_index">
+                                <div t-att-data-value="option.id" t-on-click="(ev) => this.onSelectionValueChanges(ev,option,'add')" >
+                                    <t t-esc="option.label || option.name"/>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Inherit ProductScreen template to replace ActionpadWidget -->
+    <t t-name="point_of_sale.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <!-- Replace the ActionpadWidget with custom action -->
+        <xpath expr="//ActionpadWidget" position="after">
+            <!-- <ActionpadWidget
+                partner="currentOrder?.getPartner()" 
+                onClickMore.bind="displayAllControlPopup"
+                actionName.translate="Set Commission Members"
+                actionToTrigger="() => this.showCommissionView()"
+                showActionButton="!currentOrder?.isEmpty()"
+                fastValidate="(paymentMethod) => this.fastValidate(paymentMethod)"
+            /> -->
+        </xpath>
+    </t>
+</templates>

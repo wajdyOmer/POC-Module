@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="view_employee_form_inherited_custom" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited.custom</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <!-- Add new page at the bottom of the notebook -->
+                <xpath expr="//notebook/page[@name='hr_settings']" position="after">
+                    <page name="custom_section" string="POS Orders">
+                        <group string="POS Orders">
+                            <!-- Add your custom fields here -->
+                            <field name="employee_order_lines">
+                                <list>
+                                    <field name="order_line_id"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="price_subtotal_incl"/>
+                                    <field name="commission_amount"/>
+                                    <field name="order_status"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="action_export_employee_orders">
+            <field name="name">Export Employee Orders</field>
+            <field name="model_id" ref="hr.model_hr_employee" />
+            <field name="binding_model_id" ref="hr.model_hr_employee" />
+            <field name="binding_view_types">form,list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.export_employees_orders_excel()</field>
+        </record>
+    </data>
+</odoo>

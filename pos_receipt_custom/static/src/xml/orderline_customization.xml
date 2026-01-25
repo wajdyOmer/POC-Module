@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- Inherit Orderline template to add employee selection field -->
+    <t t-name="point_of_sale.Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <!-- Add employee selection field after line-details div -->
+        <xpath expr="//div[hasclass('line-details')]" position="after">
+            <t t-if = 'this.props.mode != "receipt"'>
+                <div class="employee-selection d-flex align-items-center gap-2 px-2 py-1">
+                    <label class="mb-0 text-muted small">Employees:</label>
+                    <MultiSelectionField
+                        id="employee_selection"
+                        currentValue="[...line.employee_ids || []]"
+                        availableTables="this.pos.screenState.employeeList"
+                        onValueChanged.bind ="(value) => this.onEmployeeChange(value, line)"
+                    />
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

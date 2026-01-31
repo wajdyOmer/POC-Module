@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <!-- Inherit ProductScreen template to replace ActionpadWidget -->
-    <t t-name="point_of_sale.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
-        <!-- Replace the ActionpadWidget with custom action -->
-        <xpath expr="//ActionpadWidget" position="after">
+    <t t-name="point_of_sale.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//SelectPartnerButton[@partner='partner']" position="after">
+            <div class="control-buttons" t-if="!currentOrder?.isEmpty() and currentOrder.config.module_pos_discount" >
+                <button class="btn btn-secondary btn-lg lh-lg text-truncate w-auto discount-button" t-on-click="showDiscountPopup">
+                    <i class="fa fa-percent"/> Discount
+                </button>
+            </div>
             <!-- <ActionpadWidget
                 partner="currentOrder?.getPartner()" 
                 onClickMore.bind="displayAllControlPopup"

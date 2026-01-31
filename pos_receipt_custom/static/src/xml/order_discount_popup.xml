@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_receipt_custom.OrderDiscountPopup" owl="1">
+        <Dialog modalRef="modalRef" contentClass="'h-100'">
+            
+            <t t-set-slot="header">
+                <h4 class="modal-title"><t t-esc="props.title"/></h4>
+            </t>
+            <main class="modal-body">
+                <div class="discount-type-selector">
+                    <h5>Select Discount Type:</h5>
+                    <div class="discount-type-options">
+                        <label class="discount-type-option">
+                            <input 
+                                type="radio" 
+                                name="discountType" 
+                                value="percentage"
+                                t-att-checked="state.discountType === 'percentage'"
+                                t-on-change="() => this.onDiscountTypeChange('percentage')"
+                            />
+                            <span class="option-label">Percentage (%)</span>
+                        </label>
+                        <label class="discount-type-option">
+                            <input 
+                                type="radio" 
+                                name="discountType" 
+                                value="fixed"
+                                t-att-checked="state.discountType === 'fixed'"
+                                t-on-change="() => this.onDiscountTypeChange('fixed')"
+                            />
+                            <span class="option-label">Fixed Value</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="discount-value-input">
+                    <h5>
+                        <t t-if="state.discountType === 'percentage'">Discount Percentage:</t>
+                        <t t-else="">Discount Amount:</t>
+                    </h5>
+                    <div class="input-group">
+                        <input 
+                            type="number" 
+                            class="form-control discount-input"
+                            t-att-placeholder="state.discountType === 'percentage' ? 'Enter percentage (0-100)' : 'Enter amount'"
+                            t-model="state.inputValue"
+                            t-on-input="onInputChange"
+                            min="0"
+                            t-att-max="state.discountType === 'percentage' ? '100' : orderTotal"
+                            step="0.01"
+                        />
+                        <span class="input-group-text">
+                            <t t-if="state.discountType === 'percentage'">%</t>
+                            <t t-else="">$</t>
+                        </span>
+                    </div>
+                    <div t-if="!isValidDiscount and state.inputValue" class="text-danger mt-2">
+                        <t t-if="state.discountType === 'percentage'">
+                            Percentage must be between 0 and 100
+                        </t>
+                        <t t-else="">
+                            Discount cannot exceed order total
+                        </t>
+                    </div>
+                </div>
+
+                <div class="discount-summary mt-4">
+                    <div class="summary-row">
+                        <span class="summary-label">Order Total:</span>
+                        <span class="summary-value"><t t-esc="env.utils.formatCurrency(orderTotal)"/></span>
+                    </div>
+                    <div class="summary-row discount-amount">
+                        <span class="summary-label">Discount Amount:</span>
+                        <span class="summary-value text-danger">-<t t-esc="env.utils.formatCurrency(calculatedDiscount)"/></span>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span class="summary-label"><strong>Final Total:</strong></span>
+                        <span class="summary-value"><strong><t t-esc="env.utils.formatCurrency(discountedTotal)"/></strong></span>
+                    </div>
+                </div>
+            </main>
+            <t t-set-slot="footer">
+                <button class="btn btn-secondary" t-on-click="cancel">
+                    <t t-esc="props.cancelText"/>
+                </button>
+                <button 
+                    class="btn btn-primary" 
+                    t-on-click="confirm"
+                    t-att-disabled="!isValidDiscount or !state.inputValue"
+                >
+                    <t t-esc="props.confirmText"/>
+                </button>
+            </t>
+        </Dialog>
+    </t>
+</templates>

@@ -27,13 +27,22 @@
     ],
     'data': [
             'security/ir.model.access.csv',
-            'views/hr_employee.xml'
+            'views/hr_employee.xml',
+            'views/res_config_settings.xml',
+            'views/order_line.xml'
     ],
     'assets': {
         'point_of_sale._assets_pos': [
+            # Load model extensions first
+            'pos_receipt_custom/static/src/js/pos_model.js',
+            
+            # Load popup components
+            'pos_receipt_custom/static/src/js/order_discount_popup.js',
+            'pos_receipt_custom/static/src/xml/order_discount_popup.xml',
+            'pos_receipt_custom/static/src/style/order_discount_popup.css',
+            
+            # Load other components
             'pos_receipt_custom/static/src/xml/pos_receipt.xml',
-            'pos_receipt_custom/static/src/xml/pos_commission_customizations.xml',
-            'pos_receipt_custom/static/src/js/pos_commission_customizations.js',
             'pos_receipt_custom/static/src/js/employee_line.js',
             'pos_receipt_custom/static/src/js/employee_list.js',
             'pos_receipt_custom/static/src/xml/employee_list.xml',
@@ -45,7 +54,12 @@
             'pos_receipt_custom/static/src/js/orderline_customization.js',
             'pos_receipt_custom/static/src/style/multi_selection.css',
             'pos_receipt_custom/static/src/js/customer_display_pos_adapter.js',
-            'pos_receipt_custom/static/src/js/pos_model.js'
+            
+            # Load screen customizations last (depends on popups)
+            'pos_receipt_custom/static/src/xml/pos_commission_customizations.xml',
+            'pos_receipt_custom/static/src/js/pos_commission_customizations.js',
+
+            'pos_receipt_custom/static/src/js/controll_buttons_patch.js'
         ]
     },
     'images': ['static/description/icon.png'],

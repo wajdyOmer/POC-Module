@@ -11,10 +11,8 @@ patch(Orderline.prototype, {
     },
 
     onEmployeeChange(value, line) {
-        console.log(value, line)
         // Update the employee IDs for this order line
         line.setEmployeeIds(value || []);
-        console.log(line.employee_ids)
     }
 });
 
